@@ -9,25 +9,30 @@ if(isset($_POST['enviar'])){
     $erros = [];
 
     //Validando input de email
-    if(!$email = filter_input(INPUT_POST,'email',FILTER_VALIDATE_EMAIL)){
+
+    $email = filter_input(INPUT_POST,'email',FILTER_SANITIZE_EMAIL);
+    if(!filter_var($email,FILTER_VALIDATE_EMAIL)){
 
         $erros[] = 'Email inválido';
     }
 
     //validando input de idade
-    if(!$idade = filter_input(INPUT_POST, 'idade',FILTER_VALIDATE_INT)){
+    $idade = filter_input(INPUT_POST,'idade',FILTER_SANITIZE_NUMBER_INT);
+    if(!filter_var($idade,FILTER_VALIDATE_INT)){
 
         $erros[] = 'Idade precisa ser um número inteiro';
     }
 
     //Validando input de peso
-    if(!$peso = filter_input(INPUT_POST,'peso',FILTER_VALIDATE_FLOAT)){
+    $peso = filter_input(INPUT_POST,'peso',FILTER_SANITIZE_NUMBER_FLOAT);
+    if(!filter_var($peso,FILTER_VALIDATE_FLOAT)){
 
-        $erros[] = 'Peso precisa ser no formato nn.n';
+        $erros[] = 'Peso inválido. Exemplo de formato: 76.5';
     }
 
     //Validando input de investimento
-    if(!$investimento = filter_input(INPUT_POST, 'investimento',FILTER_VALIDATE_FLOAT)){
+    $investimento = filter_input(INPUT_POST,'investimento',FILTER_SANITIZE_NUMBER_FLOAT);
+    if(!filter_var($investimento,FILTER_VALIDATE_FLOAT)){
 
         $erros[] = 'Investimento precisa ser no formato nn.n';
     }
